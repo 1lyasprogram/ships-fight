@@ -43,7 +43,7 @@ class BattleshipGame:  # создание второго класса
             placed = False  # расстановка не расстановленна
             while not placed:  # цикл пока не расставлены корабли
                 coords = (
-                random.randint(0, self.size - 1), random.randint(0, self.size - 1))  # выбор случайных координат
+                    random.randint(0, self.size - 1), random.randint(0, self.size - 1))  # выбор случайных координат
                 if self.is_valid_ship_placement(field,
                                                 coords):  # проверка можем ли мы поставить корабль на случайные координаты
                     field.grid[coords[0]][coords[1]] = "S"  # ставим корабль на эти координаты
@@ -64,48 +64,51 @@ class BattleshipGame:  # создание второго класса
         return True
 
     def player_turn(self, x, y):  # метод хода игрока
-
         x = "ABCDEFGHIJ".index(x)  # вычисление кооринат по x(буквы)
         y -= 1  # цифры
 
         if self.computer_field.grid[y][x] == "S":  # проверка если в этой клетке у компьютера есть корабль
-            print("Вы попали!") # мы попали
-            self.computer_field.grid[y][x] = "X" # заменяем корабль на крестик в этих координатах
-            self.computer_field.ships_alive -= 1 # вычитаем 1 живой корабль у компбютера
-            return True # возвращяем тру
-        else: # иначе
-            print("Промах!") # промах
-            return False # возвращяем фолс
+            print("Вы попали!")  # мы попали
+            self.computer_field.grid[y][x] = "X"  # заменяем корабль на крестик в этих координатах
+            self.computer_field.ships_alive -= 1  # вычитаем 1 живой корабль у компбютера
+            return True  # возвращяем тру
+        else:  # иначе
+            print("Промах!")  # промах
+            return False  # возвращяем фолс
 
-    def computer_turn(self): # метод хода компьютера
-        x, y = random.randint(0, self.size - 1), random.randint(0, self.size - 1) # выбираем рандомные корды для выстрела(хода)
-        if self.player_field.grid[y][x] == "S": # проверка на наличие корабля в клетке
-            print("Компьютер попал!") # компьютер попал
-            self.player_field.grid[y][x] = "X" # заменяем корабль на крестик в случае попадания
-            self.player_field.ships_alive -= 1 # вычитаем 1 живой корабль у игрока
-        else: # иначе
-            print("Компьютер промахнулся!") # промах
+    def computer_turn(self):  # метод хода компьютера
+        x, y = random.randint(0, self.size - 1), random.randint(0,
+                                                                self.size - 1)  # выбираем рандомные корды для выстрела(хода)
+        if self.player_field.grid[y][x] == "S":  # проверка на наличие корабля в клетке
+            print("Компьютер попал!")  # компьютер попал
+            self.player_field.grid[y][x] = "X"  # заменяем корабль на крестик в случае попадания
+            self.player_field.ships_alive -= 1  # вычитаем 1 живой корабль у игрока
+        else:  # иначе
+            print("Компьютер промахнулся!")  # промах
 
-    def play(self): # метод начала игры
+    def play(self):  # метод начала игры
         print("Расстановка кораблей компьютера:")
-        self.place_ships_randomly(self.computer_field, self.ships) # случайная расстановка(комп) передаем поле компа и кол-во кораблей
-        self.computer_field.display(show_ships=True) # отоброжаем поле
+        self.place_ships_randomly(self.computer_field,
+                                  self.ships)  # случайная расстановка(комп) передаем поле компа и кол-во кораблей
+        self.computer_field.display(show_ships=True)  # отоброжаем поле
 
         print("Ваша расстановка кораблей:")
-        self.place_ships_randomly(self.player_field, self.ships) # случайная расстановка игрока передаем поле и вол-во кораблей
-        self.player_field.display(show_ships=True) # отоброжаем поле игрока
+        self.place_ships_randomly(self.player_field,
+                                  self.ships)  # случайная расстановка игрока передаем поле и вол-во кораблей
+        self.player_field.display(show_ships=True)  # отоброжаем поле игрока
 
-        while True: # бесконечный цикл
-            x, y = input('Введите координату x:'), int(input('Введите координату y: ')) # игрок вводит координаты для выстрела
-            self.player_turn(x, y) # делаем ход
-            if self.computer_field.ships_alive == 0: # проверяем кол-во живых кораблей компа
+        while True:  # бесконечный цикл
+            x, y = input('Введите координату x:'), int(
+                input('Введите координату y: '))  # игрок вводит координаты для выстрела
+            self.player_turn(x, y)  # делаем ход
+            if self.computer_field.ships_alive == 0:  # проверяем кол-во живых кораблей компа
                 print("Вы победили! Все корабли компьютера потоплены")
-                break # выход из цикла
-            self.computer_turn() # ход компьютера
-            if self.player_field.ships_alive == 0: # проверка на кол-во живых кораблей игрока
+                break  # выход из цикла
+            self.computer_turn()  # ход компьютера
+            if self.player_field.ships_alive == 0:  # проверка на кол-во живых кораблей игрока
                 print("Вы проиграли! Все ваши корабли потоплены")
-                break # выход из цикла
+                break  # выход из цикла
 
 
-game = BattleshipGame() # создаем обьект класса
-game.play() # запускаем игру
+game = BattleshipGame()  # создаем обьект класса
+game.play()  # запускаем игру
